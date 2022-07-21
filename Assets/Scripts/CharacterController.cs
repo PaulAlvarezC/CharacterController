@@ -6,16 +6,39 @@ public class CharacterController : MonoBehaviour
 {
     //Atributo 
     public Animator animator;
+    
+    //Vectores de direccion
+    public Vector3 forward;
+    public Vector3 up;
+    public Vector3 player;
+
+    public Vector3 resultado;
+
+    public float p = 1.0f;  //Altura
+    public float q = 1.0f;  //Distancia
+
+    //Posicion de la camara
+    public Transform posCamara;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
+        player = transform.position;
+        up = transform.up;
+        forward = transform.forward;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        player = transform.position;
+        up = transform.up;
+        forward = transform.forward;
+
+        resultado = player + up * p - forward * q;
+        posCamara.position = resultado;
+
         //Al dejar de presionar tecla
         //Flecha Arriba
         if (Input.GetKeyUp(KeyCode.UpArrow)) {
