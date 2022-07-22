@@ -20,6 +20,12 @@ public class CharacterController : MonoBehaviour
     //Posicion de la camara
     public Transform posCamara;
 
+    //Altura de Cámara
+    public float alturaCamara = 0.5f;
+
+    //Vector de giro
+    public Vector3 camaraForward;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +45,12 @@ public class CharacterController : MonoBehaviour
         resultado = player + up * p - forward * q;
         posCamara.position = resultado;
 
+        //Controlar el giro de la camara
+        camaraForward = player + up * alturaCamara - posCamara.position;
+        //Creo la rotación 
+        posCamara.rotation = Quaternion.LookRotation(camaraForward);
+
+
         //Al dejar de presionar tecla
         //Flecha Arriba
         if (Input.GetKeyUp(KeyCode.UpArrow)) {
@@ -49,18 +61,22 @@ public class CharacterController : MonoBehaviour
         {
             animator.SetBool("isWalkingBackward", false);
         }
+        //Flecha Izquierda
         if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             animator.SetBool("isTurnLeft", false);
         }
+        //Flecha Derecha
         if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             animator.SetBool("isTurnRight", false);
         }
+        //Shift para correo
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             animator.SetBool("isRunning", false);
         }
+        //Spacebar para saltar
         if (Input.GetKeyUp(KeyCode.Space))
         {
             animator.SetBool("isJumping", false);
@@ -68,25 +84,31 @@ public class CharacterController : MonoBehaviour
 
 
         //Al presionar Tecla
+        //Flecha Arriba
         if (Input.GetKey(KeyCode.UpArrow)) {
             animator.SetBool("isWalking", true);
         }
+        //Flecha Abajo
         if (Input.GetKey(KeyCode.DownArrow))
         {
             animator.SetBool("isWalkingBackward", true);
         }
+        //Flecha Izquierda
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             animator.SetBool("isTurnLeft", true);
         }
+        //Flecha Derecha
         if (Input.GetKey(KeyCode.RightArrow))
         {
             animator.SetBool("isTurnRight", true);
         }
+        //Tecla shift
         if (Input.GetKey(KeyCode.LeftShift))
         {
             animator.SetBool("isRunning", true);
         }
+        //Tecla spacebar
         if (Input.GetKey(KeyCode.Space))
         {
             animator.SetBool("isJumping", true);
