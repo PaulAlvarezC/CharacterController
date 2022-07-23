@@ -61,15 +61,22 @@ public class CharacterController : MonoBehaviour
         //Creo la rotación 
         posCamara.rotation = Quaternion.LookRotation(camaraForward);
 
+        Ray rayPlayer = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(rayPlayer.origin, rayPlayer.direction, Color.red);
+
+        Ray rayCamara = new Ray(posCamara.position, posCamara.forward);
+        Debug.DrawRay(rayCamara.origin, rayCamara.direction, Color.blue);
+
 
         //Al dejar de presionar tecla
         //Flecha Arriba
         if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.Space)
-            || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.LeftShift)) {
+            || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.F)) {
             animator.SetBool("isWalking", false);
             animator.SetBool("isWalkingBackward", false);
             animator.SetBool("isRunning", false);
             animator.SetBool("isJumping", false);
+            animator.SetBool("isSalute", false);
         }
 
         //Al presionar Tecla
@@ -102,6 +109,11 @@ public class CharacterController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             animator.SetBool("isJumping", true);
+        }
+        //Tecla F
+        if (Input.GetKey(KeyCode.F))
+        {
+            animator.SetBool("isSalute", true);
         }
     }
 }
